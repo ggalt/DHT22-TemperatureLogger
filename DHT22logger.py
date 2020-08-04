@@ -69,6 +69,7 @@ FIVE_MINUTES = 15
 
 def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
+	print("###############################################################################################################")
 
 	# Read configurations from config.json. If this fails, no need to run further -> terminate.
 	try:
