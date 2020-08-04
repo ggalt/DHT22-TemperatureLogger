@@ -212,7 +212,7 @@ def main():
 		
 		pygame.display.update()
 		sleep(5)    
-
+	loggerMain()
 	
 
      
