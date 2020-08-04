@@ -37,8 +37,7 @@ class QuickSensorDataHandler():
 		try:
 			self.sensorTempsAndColors = self._compareReadValuesWithSetLimits()
 		except:
-			self.logger.error(
-			    "Failed to compare read value with set limits", exc_info=True)
+			self.logger.error("Failed to compare read value with set limits", exc_info=True)
 			raise
 
 		return self.sensorTempsAndColors
@@ -54,15 +53,13 @@ class QuickSensorDataHandler():
 
 			self.logger.info('Perform delta check compare against previously measured results for sensor %s', key)
 
-            myTemp = value.get('temperature')
-            loTemp = value.get('temperatureLowLimit')
-		    hiTemp = value.get('temperatureHighLimit')
+			myTemp = value.get('temperature')
+			loTemp = value.get('temperatureLowLimit')
+			hiTemp = value.get('temperatureHighLimit')
 
 			if myTemp > hiTemp:
-                self.sensorTempsAndColors[key] = (myTemp, RED)
-            elif myTemp < loTemp:
-                self.sensorTempsAndColors[key] = (myTemp, BLUE)
-            else:
-                self.sensorTempsAndColors[key] = (myTemp, GREEN)
-                    
-
+				self.sensorTempsAndColors[key] = (myTemp, RED)
+			elif myTemp < loTemp:
+				self.sensorTempsAndColors[key] = (myTemp, BLUE)
+			else:
+				self.sensorTempsAndColors[key] = (myTemp, GREEN)
