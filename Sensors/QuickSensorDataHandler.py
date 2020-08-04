@@ -63,9 +63,13 @@ class QuickSensorDataHandler():
 			myTemp = value['temperature']
 			print ( "Temp with bracket is: %s", myTemp)
 
+			print( 'BEFORE sensor temps and colors:', self.sensorTempsAndColors)
+
 			if myTemp > hiTemp:
 				self.sensorTempsAndColors[key] = (myTemp, RED)
 			elif myTemp < loTemp:
 				self.sensorTempsAndColors[key] = (myTemp, BLUE)
 			else:
 				self.sensorTempsAndColors[key] = (myTemp, GREEN)
+
+			print( 'AFTER sensor temps and colors:', self.sensorTempsAndColors)
