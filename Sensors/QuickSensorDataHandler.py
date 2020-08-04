@@ -59,6 +59,9 @@ class QuickSensorDataHandler():
 			myTemp = value.get('temperature')
 			loTemp = value.get('temperatureLowLimit')
 			hiTemp = value.get('temperatureHighLimit')
+			print( "Temp with get is: %s", myTemp )
+			myTemp = value['temperature']
+			print ( "Temp with bracket is: %s", myTemp)
 
 			if myTemp > hiTemp:
 				self.sensorTempsAndColors[key] = (myTemp, RED)
