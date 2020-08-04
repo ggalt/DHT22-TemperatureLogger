@@ -204,9 +204,9 @@ def main():
 			rect = text_surface.get_rect(topleft=v)
 			lcd.blit(text_surface, rect)
 
-			#myTemp,myColor = tempsAndColors[keyConnect[k]]
-			myTemp = 60
-			myColor = RED
+			myTemp,myColor = tempsAndColors[keyConnect[k]]
+			#myTemp = 60
+			#myColor = RED
 			print('name of value is: %s', keyConnect[k])
 			print tempsAndColors
 

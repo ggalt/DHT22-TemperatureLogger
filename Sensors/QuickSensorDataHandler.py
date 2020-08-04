@@ -36,7 +36,7 @@ class QuickSensorDataHandler():
 
 		# Check if measured values are beyond set limits
 		try:
-			self.sensorTempsAndColors = self._compareReadValuesWithSetLimits()
+			self._compareReadValuesWithSetLimits()
 		except:
 			self.logger.error("Failed to compare read value with set limits", exc_info=True)
 			raise
