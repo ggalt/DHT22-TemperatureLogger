@@ -184,7 +184,7 @@ def main():
 
 	counter = 1
 
-	tempTimer.enter(FIVE_MINUTES,1,loggerMain,,)
+	tempTimer.enter(FIVE_MINUTES,1,loggerMain)
 	tempTimer.run()
 
 	while counter < 10:
