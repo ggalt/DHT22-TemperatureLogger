@@ -4,14 +4,6 @@ import sys
 from Sensors.QuickSensorReader import QuickSensorReader
 from Utility.MeasurementCompare import MeasurementCompare
 
-BLACK = (0,0,0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-
-
-
 class QuickSensorDataHandler():
 	' Class for handling Sensors and data gathered from sensors. Reads data, persists it to database and performs comparisons to see if temperature or humidity has changed more than set threshold allows'
 
@@ -40,22 +32,28 @@ class QuickSensorDataHandler():
 		except Exception as e:
 			self.logger.error("Sensor reading raised exception",exc_info=True)
 			raise
-		
+
 		# Check if measured values are beyond set limits
 		try:
 			self.sensorTempsAndColors = self._compareReadValuesWithSetLimits()
-		except:	
-			self.logger.error("Failed to compare read value with set limits",exc_info=True)
+		except:
+			self.logger.error(
+			    "Failed to compare read value with set limits", exc_info=True)
 			raise
 
 		return self.sensorTempsAndColors
 
-	' Compare measured temperature and humidity with set trigger limits '
 	def _compareReadValuesWithSetLimits(self):
+		BLACK = (0, 0, 0)
+		WHITE = (255, 255, 255)
+		RED = (255, 0, 0)
+		GREEN = (0, 255, 0)
+		BLUE = (0, 0, 255)
 
 		for key, value in self.readingsFromSensors.iteritems():
-			self.logger.info('Perform delta check compare against previously measured results for sensor %s',key)
-   
+
+			self.logger.info('Perform delta check compare against previously measured results for sensor %s', key)
+
             myTemp = value.get('temperature')
             loTemp = value.get('temperatureLowLimit')
 		    hiTemp = value.get('temperatureHighLimit')
