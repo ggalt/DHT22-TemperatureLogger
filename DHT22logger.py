@@ -158,7 +158,7 @@ def loggerMain():
 
 	logger.info("DHT22logger execution finished\n")
  
- def main():
+def main():
 #     loggerMain()
 
 	os.putenv('SDL_FBDEV', '/dev/fb1')
