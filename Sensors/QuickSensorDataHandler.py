@@ -9,7 +9,6 @@ class QuickSensorDataHandler():
 
 	def __init__(self, configurations):
 		self.logger = logging.getLogger(__name__)
-		print(__name__)
 		self.logger.info("QuickSensorDataHandler instantiation started")
 
 		# Set passed in data to variables for further usage

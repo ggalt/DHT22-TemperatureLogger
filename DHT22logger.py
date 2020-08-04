@@ -64,10 +64,11 @@ FREEZER = 4
 FRIDGE_FREEZER = 22
 FRIDGE = 23
 
-
+5MIN = 15
 
 
 def loggerMain():
+	logger = logging.getLogger('DHT22Logger')
 
 	# Read configurations from config.json. If this fails, no need to run further -> terminate.
 	try:
@@ -183,7 +184,11 @@ def main():
 
 	counter = 1
 
+	tempTimer.enter(5MIN,1,loggerMain,,)
+	tempTimer.run()
+
 	while counter < 10:
+
 		counter += 1
 
 		tempsAndColors = {}
@@ -209,8 +214,7 @@ def main():
 			lcd.blit(temp_surface, temp_rect)
 		
 		pygame.display.update()
-		sleep(5)    
-	loggerMain()
+		sleep(5)
 	
 
      

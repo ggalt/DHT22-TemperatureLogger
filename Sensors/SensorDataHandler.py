@@ -9,7 +9,6 @@ class SensorDataHandler():
 
 	def __init__(self, configurations,dbControl,mailSender):
 		self.logger = logging.getLogger(__name__)
-		print(__name__)
 		self.logger.info("SensorDataHandler instantiation started")
 
 		# Set passed in data to variables for further usage
