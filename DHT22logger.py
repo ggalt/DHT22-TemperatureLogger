@@ -208,7 +208,7 @@ def main():
 			myTemp = 60
 			myColor = RED
 			print('name of value is: %s', keyConnect[k])
-			pring tempsAndColors
+			print tempsAndColors
 
 			temp_surface = font_big.render('%.2f*F'%myTemp, True, myColor)
 			temp_rect = temp_surface.get_rect(topright=temp_pos[k])
