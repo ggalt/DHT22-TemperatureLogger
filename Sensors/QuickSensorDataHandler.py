@@ -28,6 +28,7 @@ class QuickSensorDataHandler():
 		# Store sensor temperature and humidity readings with other relevant data
 		try:
 			self.readingsFromSensors, self.failedSensors = self.quickSensorReader.getSensorReadings()
+			print(self.readingsFromSensors)
 			self.logger.info('Successfully read: %s sensors. Failed to read: %s sensor(s)',len(self.readingsFromSensors),len(self.failedSensors))
 		except Exception as e:
 			self.logger.error("Sensor reading raised exception",exc_info=True)
