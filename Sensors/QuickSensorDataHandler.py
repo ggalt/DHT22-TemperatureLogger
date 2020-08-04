@@ -53,7 +53,9 @@ class QuickSensorDataHandler():
 		for key, value in self.readingsFromSensors.iteritems():
 
 			self.logger.info('Perform delta check compare against previously measured results for sensor %s', key)
-
+			print(key)
+			print(value)
+   
 			myTemp = value.get('temperature')
 			loTemp = value.get('temperatureLowLimit')
 			hiTemp = value.get('temperatureHighLimit')
