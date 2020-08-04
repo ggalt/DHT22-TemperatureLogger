@@ -38,8 +38,36 @@ from Utility.WeeklyAverages import WeeklyAverages
 from Database.DbActionController import DbController
 from Configurations.ConfigHandler import ConfigHandler
 from Sensors.SensorDataHandler import SensorDataHandler
+from Sensors.QuickSensorDataHandler import QuickSensorDataHandler
 
-def main():
+import pygame
+import sched
+import os
+from time import sleep
+from time import time
+
+
+
+BLACK = (0,0,0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+#labels
+FREEZER_LBL = "Freezer:"
+FRIDGE_LBL = "Fridge:"
+FRIDGE_FREEZER_LBL = "Fridge-Freezer:"
+
+#sensor GPIO pins
+FREEZER = 4
+FRIDGE_FREEZER = 22
+FRIDGE = 23
+
+
+
+
+def loggerMain():
 
 	# Create logger for debugging purposes
 	try:
@@ -129,6 +157,65 @@ def main():
 		logger.info("Sql backup dump finished")
 
 	logger.info("DHT22logger execution finished\n")
+ 
+ def main():
+#     loggerMain()
+
+	os.putenv('SDL_FBDEV', '/dev/fb1')
+	pygame.init()
+	pygame.mouse.set_visible(False)
+	lcd = pygame.display.set_mode((320, 240))
+	lcd.fill(BLACK)
+	pygame.display.update()
+
+	font_big = pygame.font.Font(None, 35)
+ 
+	label_pos = {FREEZER:(10,30), FRIDGE_FREEZER:(10,90), FRIDGE:(10,150)}
+	temp_pos = {FREEZER:(310,30), FRIDGE_FREEZER:(310,90), FRIDGE:(310,150)}
+	temp_label = {FREEZER:FREEZER_LBL, FRIDGE_FREEZER:FRIDGE_FREEZER_LBL, FRIDGE:FRIDGE_LBL}
+	keyConnect = {FREEZER:"Freezer", FRIDGE_FREEZER:"Fridge-Freezer", FRIDGE:"Fridge-Fridge"}
+
+	# Read configurations from config.json. If this fails, no need to run further -> terminate.
+	try:
+		configurationHandler = ConfigHandler()
+		configurations = configurationHandler.getFullConfiguration()
+	except Exception as e:
+		logger.error('Failed to get configurations:\n',exc_info=True)
+		sys.exit(0)
+
+	counter = 1
+
+	while counter < 10:
+		counter += 1
+  
+		tempsAndColors = {}
+  
+		# Instantiate sensorHandler and use it to read and persist readings
+		try:
+			tempsAndColors = QuickSensorDataHandler(configurations).readAndStoreSensorReadings()
+		except Exception as e:
+			logger.error('Sensor data handling failed:\n',exc_info=True)
+	
+		lcd.fill((0,0,0))
+
+		for k,v in label_pos.items():
+			l = temp_label[k]
+			text_surface = font_big.render('%s'%l, True, WHITE)
+			rect = text_surface.get_rect(topleft=v)
+			lcd.blit(text_surface, rect)
+   
+			myTemp, myColor = tempsAndColors[keyConnect[k]]
+			
+			temp_surface = font_big.render('%.2f*F'%myTemp, True, myColor)
+			temp_rect = temp_surface.get_rect(topright=temp_pos[k])
+			lcd.blit(temp_surface, temp_rect)
+		
+		pygame.display.update()
+		sleep(5)    
+
+	
+
+     
 
 if __name__ == "__main__":
 	main()
