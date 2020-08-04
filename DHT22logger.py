@@ -64,7 +64,7 @@ FREEZER = 4
 FRIDGE_FREEZER = 22
 FRIDGE = 23
 
-5MIN = 15
+FIVE_MINUTES = 15
 
 
 def loggerMain():
@@ -184,7 +184,7 @@ def main():
 
 	counter = 1
 
-	tempTimer.enter(5MIN,1,loggerMain,,)
+	tempTimer.enter(FIVE_MINUTES,1,loggerMain,,)
 	tempTimer.run()
 
 	while counter < 10:
