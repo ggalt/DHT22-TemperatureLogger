@@ -67,7 +67,7 @@ FRIDGE = 23
 FIVE_MINUTES = 15
 
 
-def loggerMain():
+def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
 
 	# Read configurations from config.json. If this fails, no need to run further -> terminate.
@@ -185,7 +185,7 @@ def main():
 	counter = 1
 
 	tempTimer = sched.scheduler(time, sleep)
-	tempTimer.enter(FIVE_MINUTES,1,loggerMain, argument=(,))
+	tempTimer.enter(FIVE_MINUTES,1,loggerMain, argument=('empty',))
 	tempTimer.run()
 
 	while counter < 10:
