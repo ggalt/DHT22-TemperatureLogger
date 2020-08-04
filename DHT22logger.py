@@ -69,18 +69,6 @@ FRIDGE = 23
 
 def loggerMain():
 
-	# Create logger for debugging purposes
-	try:
-		Logger()
-		logger = logging.getLogger()
-	# Print to console if logger instantiation failed and terminate. Execution will fail anyway in next logging attempt
-	except Exception as e: 
-		print('Logger initialization failed. Error:\n{0}\nTry adding write permission directly to root (DHT22-TemperatureLogger) folder with "sudo chmod -R 777"'.format(e))
-		sys.exit(0)
-
-	#  First log entry to indicate execution has started
-	logger.info("DHT22logger execution started")
-
 	# Read configurations from config.json. If this fails, no need to run further -> terminate.
 	try:
 		configurationHandler = ConfigHandler()
@@ -159,7 +147,25 @@ def loggerMain():
 	logger.info("DHT22logger execution finished\n")
  
 def main():
-	#     loggerMain()
+	# Create logger for debugging purposes
+	try:
+		Logger()
+		logger = logging.getLogger()
+	# Print to console if logger instantiation failed and terminate. Execution will fail anyway in next logging attempt
+	except Exception as e: 
+		print('Logger initialization failed. Error:\n{0}\nTry adding write permission directly to root (DHT22-TemperatureLogger) folder with "sudo chmod -R 777"'.format(e))
+		sys.exit(0)
+
+	#  First log entry to indicate execution has started
+	logger.info("DHT22logger execution started")
+
+	# Read configurations from config.json. If this fails, no need to run further -> terminate.
+	try:
+		configurationHandler = ConfigHandler()
+		configurations = configurationHandler.getFullConfiguration()
+	except Exception as e:
+		logger.error('Failed to get configurations:\n',exc_info=True)
+		sys.exit(0)
 
 	os.putenv('SDL_FBDEV', '/dev/fb1')
 	pygame.init()
@@ -174,14 +180,6 @@ def main():
 	temp_pos = {FREEZER:(310,30), FRIDGE_FREEZER:(310,90), FRIDGE:(310,150)}
 	temp_label = {FREEZER:FREEZER_LBL, FRIDGE_FREEZER:FRIDGE_FREEZER_LBL, FRIDGE:FRIDGE_LBL}
 	keyConnect = {FREEZER:"Freezer", FRIDGE_FREEZER:"Fridge-Freezer", FRIDGE:"Fridge-Fridge"}
-
-	# Read configurations from config.json. If this fails, no need to run further -> terminate.
-	try:
-		configurationHandler = ConfigHandler()
-		configurations = configurationHandler.getFullConfiguration()
-	except Exception as e:
-		logger.error('Failed to get configurations:\n',exc_info=True)
-		sys.exit(0)
 
 	counter = 1
 
