@@ -20,9 +20,9 @@ class QuickSensorDataHandler():
 		# Create empty list for readings
 		self.readingsFromSensors = {}
 		self.failedSensors = []
-        self.sensorTempsAndColors = {}
+		self.sensorTempsAndColors = {}
 
-        self.logger.info("QuickSensorDataHandler instantiated")
+		self.logger.info("QuickSensorDataHandler instantiated")
 
 	def readAndStoreSensorReadings(self):
 		# Store sensor temperature and humidity readings with other relevant data
