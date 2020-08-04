@@ -28,7 +28,6 @@ class QuickSensorDataHandler():
 		# Store sensor temperature and humidity readings with other relevant data
 		try:
 			self.readingsFromSensors, self.failedSensors = self.quickSensorReader.getSensorReadings()
-			print(self.readingsFromSensors)
 			self.logger.info('Successfully read: %s sensors. Failed to read: %s sensor(s)',len(self.readingsFromSensors),len(self.failedSensors))
 		except Exception as e:
 			self.logger.error("Sensor reading raised exception",exc_info=True)
@@ -53,17 +52,11 @@ class QuickSensorDataHandler():
 		for key, value in self.readingsFromSensors.iteritems():
 
 			self.logger.info('Perform delta check compare against previously measured results for sensor %s', key)
-			print(key)
-			print(value)
    
 			myTemp = value.get('temperature')
 			loTemp = value.get('temperatureLowLimit')
 			hiTemp = value.get('temperatureHighLimit')
-			print( "Temp with get is: %s", myTemp )
 			myTemp = value['temperature']
-			print ( "Temp with bracket is: %s", myTemp)
-
-			print( 'BEFORE sensor temps and colors:', self.sensorTempsAndColors)
 
 			if myTemp > hiTemp:
 				self.sensorTempsAndColors[key] = (myTemp, RED)
@@ -71,5 +64,3 @@ class QuickSensorDataHandler():
 				self.sensorTempsAndColors[key] = (myTemp, BLUE)
 			else:
 				self.sensorTempsAndColors[key] = (myTemp, GREEN)
-
-			print( 'AFTER sensor temps and colors:', self.sensorTempsAndColors)
