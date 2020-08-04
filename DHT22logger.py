@@ -159,7 +159,7 @@ def loggerMain():
 	logger.info("DHT22logger execution finished\n")
  
 def main():
-#     loggerMain()
+	#     loggerMain()
 
 	os.putenv('SDL_FBDEV', '/dev/fb1')
 	pygame.init()
@@ -187,7 +187,7 @@ def main():
 
 	while counter < 10:
 		counter += 1
-  
+
 		tempsAndColors = {}
   
 		# Instantiate sensorHandler and use it to read and persist readings
@@ -203,9 +203,12 @@ def main():
 			text_surface = font_big.render('%s'%l, True, WHITE)
 			rect = text_surface.get_rect(topleft=v)
 			lcd.blit(text_surface, rect)
-   
-			myTemp, myColor = tempsAndColors[keyConnect[k]]
-			
+
+			#myTemp,myColor = tempsAndColors[keyConnect[k]]
+			myTemp = 60
+			myColor = RED
+			print('name of value is: %s', keyConnect[k])
+
 			temp_surface = font_big.render('%.2f*F'%myTemp, True, myColor)
 			temp_rect = temp_surface.get_rect(topright=temp_pos[k])
 			lcd.blit(temp_surface, temp_rect)
