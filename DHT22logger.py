@@ -185,7 +185,7 @@ def main():
 	counter = 1
 
 	tempTimer = sched.scheduler(time, sleep)
-	tempTimer.enter(FIVE_MINUTES,1,loggerMain)
+	tempTimer.enter(FIVE_MINUTES,1,loggerMain, argument=(,))
 	tempTimer.run()
 
 	while counter < 10:
