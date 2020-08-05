@@ -49,7 +49,6 @@ from time import sleep
 from time import time
 
 
-
 BLACK = (0,0,0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
@@ -154,6 +153,7 @@ def loggerMain(a='default'):
 
 def main():
 	# Create logger for debugging purposes
+	global locked
 	try:
 		Logger()
 		logger = logging.getLogger()
