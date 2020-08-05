@@ -150,9 +150,6 @@ def loggerMain(a='default'):
 
 	logger.info("DHT22logger execution finished\n")
 
-def print_func():
-    print("------------------------------------------------------------------------------")
- 
 def main():
 	# Create logger for debugging purposes
 	try:
@@ -189,43 +186,45 @@ def main():
 	keyConnect = {FREEZER:"Freezer", FRIDGE_FREEZER:"Fridge-Freezer", FRIDGE:"Fridge-Fridge"}
 
 	counter = 1
-
-	# tempTimer = sched.scheduler(time, sleep)
-	# tempTimer.enter(FIVE_MINUTES,1,loggerMain, argument=('empty',))
-	# tempTimer.run()
-	stopFlag = Event()
-	fridgeTimer = MyTimer(15,stopFlag,print_func)
-	fridgeTimer.start()
+ 
+	global locked
+	locked = False
+	loggerStopFlag = Event()
+	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
+	loggerTimer.start()
 
 	while counter < 10:
 
 		counter += 1
 
 		tempsAndColors = {}
-  
-		# Instantiate sensorHandler and use it to read and persist readings
-		try:
-			tempsAndColors = QuickSensorDataHandler(configurations).readAndStoreSensorReadings()
-		except Exception as e:
-			logger.error('Sensor data handling failed:\n',exc_info=True)
-	
-		lcd.fill((0,0,0))
 
-		for k,v in label_pos.items():
-			l = temp_label[k]
-			text_surface = font_big.render('%s'%l, True, WHITE)
-			rect = text_surface.get_rect(topleft=v)
-			lcd.blit(text_surface, rect)
-
-			myTemp,myColor = tempsAndColors[keyConnect[k]]
-
-			temp_surface = font_big.render('%.2f*F'%myTemp, True, myColor)
-			temp_rect = temp_surface.get_rect(topright=temp_pos[k])
-			lcd.blit(temp_surface, temp_rect)
+		if locked == False:
+			locked = True
+  			# Instantiate sensorHandler and use it to read and persist readings
+			try:
+				tempsAndColors = QuickSensorDataHandler(configurations).readAndStoreSensorReadings()
+			except Exception as e:
+				logger.error('Sensor data handling failed:\n',exc_info=True)
 		
-		pygame.display.update()
-		sleep(5)
-	
+			lcd.fill((0,0,0))
+
+			for k,v in label_pos.items():
+				l = temp_label[k]
+				text_surface = font_big.render('%s'%l, True, WHITE)
+				rect = text_surface.get_rect(topleft=v)
+				lcd.blit(text_surface, rect)
+
+				myTemp,myColor = tempsAndColors[keyConnect[k]]
+
+				temp_surface = font_big.render('%.2f*F'%myTemp, True, myColor)
+				temp_rect = temp_surface.get_rect(topright=temp_pos[k])
+				lcd.blit(temp_surface, temp_rect)
+
+			locked = False
+			pygame.display.update()
+			sleep(5)
+	loggerStopFlag.set()
 
      
 

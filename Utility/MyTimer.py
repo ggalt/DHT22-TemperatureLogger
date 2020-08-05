@@ -8,6 +8,10 @@ class MyTimer(Thread):
         self.func = func
 
     def run(self):
+        global locked
         while not self.stopped.wait(self.period):
-            self.func()
+            if locked == False:
+                locked = True
+                self.func()
+                locked = False
             
