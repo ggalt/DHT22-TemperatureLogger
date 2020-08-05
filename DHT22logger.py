@@ -65,7 +65,7 @@ FREEZER = 4
 FRIDGE_FREEZER = 22
 FRIDGE = 23
 
-FIVE_MINUTES = 15
+FIVE_MINUTES = 5 * 60
 
 def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
