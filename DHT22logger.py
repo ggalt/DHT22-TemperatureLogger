@@ -68,6 +68,8 @@ FRIDGE = 23
 
 FIVE_MINUTES = 15
 
+global locked
+locked = False
 
 def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
@@ -187,8 +189,6 @@ def main():
 
 	counter = 1
  
-	global locked
-	locked = False
 	loggerStopFlag = Event()
 	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
 	loggerTimer.start()
