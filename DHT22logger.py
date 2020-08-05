@@ -40,7 +40,7 @@ from Database.DbActionController import DbController
 from Configurations.ConfigHandler import ConfigHandler
 from Sensors.SensorDataHandler import SensorDataHandler
 from Sensors.QuickSensorDataHandler import QuickSensorDataHandler
-from Utility.MyTimer import MyTimer
+from Utility.MyTimer import *
 
 import pygame
 import sched
@@ -66,9 +66,6 @@ FRIDGE_FREEZER = 22
 FRIDGE = 23
 
 FIVE_MINUTES = 15
-
-global locked
-locked = False
 
 def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
