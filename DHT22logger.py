@@ -32,6 +32,7 @@
 import sys
 import logging, logging.handlers
 
+from threading import Event
 from Debugger.Logger import Logger
 from Utility.MailSender import MailSender
 from Utility.WeeklyAverages import WeeklyAverages
@@ -39,6 +40,7 @@ from Database.DbActionController import DbController
 from Configurations.ConfigHandler import ConfigHandler
 from Sensors.SensorDataHandler import SensorDataHandler
 from Sensors.QuickSensorDataHandler import QuickSensorDataHandler
+from Utility.MyTimer import MyTimer
 
 import pygame
 import sched
@@ -147,6 +149,9 @@ def loggerMain(a='default'):
 		logger.info("Sql backup dump finished")
 
 	logger.info("DHT22logger execution finished\n")
+
+def print_func():
+    print("------------------------------------------------------------------------------")
  
 def main():
 	# Create logger for debugging purposes
@@ -185,9 +190,12 @@ def main():
 
 	counter = 1
 
-	tempTimer = sched.scheduler(time, sleep)
-	tempTimer.enter(FIVE_MINUTES,1,loggerMain, argument=('empty',))
-	tempTimer.run()
+	# tempTimer = sched.scheduler(time, sleep)
+	# tempTimer.enter(FIVE_MINUTES,1,loggerMain, argument=('empty',))
+	# tempTimer.run()
+	stopFlag = Event()
+	fridgeTimer = MyTimer(15,stopFlag,print_func)
+	fridgeTimer.start()
 
 	while counter < 10:
 
