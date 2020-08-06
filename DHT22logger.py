@@ -68,6 +68,8 @@ FRIDGE = 23
 
 FIVE_MINUTES = 15
 
+channel = 8
+
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(channel, GPIO.IN)
 GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
