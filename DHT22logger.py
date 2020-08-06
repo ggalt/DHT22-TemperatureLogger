@@ -78,6 +78,7 @@ loggerStopFlag = Event()
 
 
 def time2Go():
+    print("######################## time to go ######################")
     loggerStopFlag.set()
     sleep(0.5)
     GPIO.cleanup()
@@ -207,7 +208,7 @@ def main():
 	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
 	loggerTimer.start()
 
-	while counter < 10:
+	while counter < 4:
 
 		counter += 1
 
