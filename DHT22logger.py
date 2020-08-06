@@ -46,7 +46,7 @@ from Utility.MyTimer import *
 import pygame
 import sched
 import os
-import datetime
+from datetime import datetime
 from time import sleep
 from time import time
 
@@ -223,7 +223,8 @@ def main():
 
 			locked = False
 
-			timeObj = datetime.now().time()
+			dateTimeObj = datetime.now()
+			timeObj = dateTimeObj.time()
 			timeString = timeObj.hour+":"+timeObj.minute
 
 			time_surface = font_big.render(timeString, True, WHITE)
