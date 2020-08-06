@@ -227,7 +227,7 @@ def main():
 			timeString = timeObj.hour+":"+timeObj.minute
 
 			time_surface = font_big.render(timeString, True, WHITE)
-			time_rect = time_surface.get_rect(bottomcenter = (120,310))
+			time_rect = time_surface.get_rect(midbottom = (120,310))
 			lcd.blit(time_surface, time_rect)
 
 			pygame.display.update()
