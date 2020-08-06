@@ -195,6 +195,7 @@ def main():
 	while counter < 4:
 
 		counter += 1
+		print("COUNTER >>>>>>>>>>>>>>>>>", counter)
 
 		tempsAndColors = {}
 
@@ -231,6 +232,7 @@ def main():
 
 			pygame.display.update()
 			sleep(5)
+   
 	loggerStopFlag.set()
 	sleep(0.5)
 	GPIO.cleanup()
