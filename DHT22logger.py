@@ -226,18 +226,15 @@ def main():
 			dateTimeObj = datetime.now()
 			
 			timeString = dateTimeObj.strftime("%I:%M %p")
-			print("Time is: "+timeString)
 
 			time_surface = font_big.render(timeString, True, GREEN)
-			time_rect = time_surface.get_rect(midbottom = (120,240))
+			time_rect = time_surface.get_rect(topright = (120,200))
 			lcd.blit(time_surface, time_rect)
 
 			pygame.display.update()
 			sleep(5)
    
 	loggerStopFlag.set()
-	sleep(0.5)
-	GPIO.cleanup()
 
      
 
