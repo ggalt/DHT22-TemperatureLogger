@@ -4,6 +4,7 @@ import sys
 from Sensors.QuickSensorReader import QuickSensorReader
 from Utility.MeasurementCompare import MeasurementCompare
 
+
 class QuickSensorDataHandler():
 	' Class for handling Sensors and data gathered from sensors. Reads data, persists it to database and performs comparisons to see if temperature or humidity has changed more than set threshold allows'
 
@@ -43,11 +44,12 @@ class QuickSensorDataHandler():
 		return self.sensorTempsAndColors
 
 	def _compareReadValuesWithSetLimits(self):
-		BLACK = (0, 0, 0)
+		BLACK = (0,0,0)
 		WHITE = (255, 255, 255)
 		RED = (255, 0, 0)
 		GREEN = (0, 255, 0)
 		BLUE = (0, 0, 255)
+		LIGHTBLUE = (0, 150, 255)
 
 		for key, value in self.readingsFromSensors.iteritems():
 
@@ -61,6 +63,6 @@ class QuickSensorDataHandler():
 			if myTemp > hiTemp:
 				self.sensorTempsAndColors[key] = (myTemp, RED)
 			elif myTemp < loTemp:
-				self.sensorTempsAndColors[key] = (myTemp, BLUE)
+				self.sensorTempsAndColors[key] = (myTemp, LIGHTBLUE)
 			else:
 				self.sensorTempsAndColors[key] = (myTemp, GREEN)

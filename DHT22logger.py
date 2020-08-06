@@ -56,6 +56,7 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+LIGHTBLUE = (0, 150, 255)
 
 #labels
 FREEZER_LBL = "Freezer:"
@@ -153,8 +154,6 @@ def loggerMain(a='default'):
 
 def main():
 	# Create logger for debugging purposes
-	global locked
-	locked = False
 	try:
 		Logger()
 		logger = logging.getLogger()
@@ -162,6 +161,9 @@ def main():
 	except Exception as e: 
 		print('Logger initialization failed. Error:\n{0}\nTry adding write permission directly to root (DHT22-TemperatureLogger) folder with "sudo chmod -R 777"'.format(e))
 		sys.exit(0)
+
+	global locked
+	locked = False
 
 	#  First log entry to indicate execution has started
 	logger.info("DHT22logger execution started")
@@ -188,15 +190,16 @@ def main():
 	temp_label = {FREEZER:FREEZER_LBL, FRIDGE_FREEZER:FRIDGE_FREEZER_LBL, FRIDGE:FRIDGE_LBL}
 	keyConnect = {FREEZER:"Freezer", FRIDGE_FREEZER:"Fridge-Freezer", FRIDGE:"Fridge-Fridge"}
 
-	counter = 1
+	# counter = 1
 	loggerStopFlag = Event()
-	# loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
-	# loggerTimer.start()
+	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
+	loggerTimer.start()
 
-	while counter < 4:
-
-		counter += 1
-		print("COUNTER >>>>>>>>>>>>>>>>>", counter)
+	# while counter < 4:
+	while True:
+    
+		# counter += 1
+		# print("COUNTER >>>>>>>>>>>>>>>>>", counter)
 
 		tempsAndColors = {}
 
@@ -228,7 +231,7 @@ def main():
 			
 			timeString = dateTimeObj.strftime("%I:%M %p")
 
-			time_surface = font_big.render(timeString, True, GREEN)
+			time_surface = font_big.render(timeString, True, LIGHTBLUE)
 			time_rect = time_surface.get_rect(midbottom=(160,230))
 			lcd.blit(time_surface, time_rect)
 
