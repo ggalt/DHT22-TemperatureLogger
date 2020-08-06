@@ -226,8 +226,9 @@ def main():
 			dateTimeObj = datetime.now()
 			
 			timeString = dateTimeObj.strftime("%I:%M %p %z")
+			print("Time is: "+timeString)
 
-			time_surface = font_big.render(timeString, True, WHITE)
+			time_surface = font_big.render(timeString, True, GREEN)
 			time_rect = time_surface.get_rect(midbottom = (120,310))
 			lcd.blit(time_surface, time_rect)
 
