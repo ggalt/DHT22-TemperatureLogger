@@ -68,12 +68,12 @@ FREEZER = 4
 FRIDGE_FREEZER = 22
 FRIDGE = 23
 
-FIVE_MINUTES = 15
+FIVE_MINUTES = 5 * 60
+THIRTY_SECONDS = 30
 
 
 def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
-	print("###############################################################################################################")
 
 	# Read configurations from config.json. If this fails, no need to run further -> terminate.
 	try:
@@ -152,6 +152,9 @@ def loggerMain(a='default'):
 
 	logger.info("DHT22logger execution finished\n")
 
+
+############################################################################################################# 
+
 def main():
 	# Create logger for debugging purposes
 	try:
@@ -176,13 +179,13 @@ def main():
 		logger.error('Failed to get configurations:\n',exc_info=True)
 		sys.exit(0)
 
+	# Set up PiTFT display and pygame
 	os.putenv('SDL_FBDEV', '/dev/fb1')
 	pygame.init()
 	pygame.mouse.set_visible(False)
 	lcd = pygame.display.set_mode((320, 240))
 	lcd.fill(BLACK)
 	pygame.display.update()
-
 	font_big = pygame.font.Font(None, 35)
  
 	label_pos = {FREEZER:(10,30), FRIDGE_FREEZER:(10,90), FRIDGE:(10,150)}
@@ -191,6 +194,7 @@ def main():
 	keyConnect = {FREEZER:"Freezer", FRIDGE_FREEZER:"Fridge-Freezer", FRIDGE:"Fridge-Fridge"}
 
 	# counter = 1
+	# Establish Thread for logged readings of temps
 	loggerStopFlag = Event()
 	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
 	loggerTimer.start()
@@ -236,7 +240,7 @@ def main():
 			lcd.blit(time_surface, time_rect)
 
 			pygame.display.update()
-			sleep(5)
+			sleep(THIRTY_SECONDS)
    
 	loggerStopFlag.set()
 
