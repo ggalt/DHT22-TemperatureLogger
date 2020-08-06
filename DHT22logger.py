@@ -46,6 +46,7 @@ from Utility.MyTimer import *
 import pygame
 import sched
 import os
+import datetime
 from time import sleep
 from time import time
 
@@ -220,6 +221,14 @@ def main():
 				lcd.blit(temp_surface, temp_rect)
 
 			locked = False
+
+			timeObj = datetime.now().time()
+			timeString = timeObj.hour+":"+timeObj.minute
+
+			time_surface = font_big.render(timeString, True, myColor)
+			time_rect = time_surface.get_rect(bottomcenter = (120,310))
+			lcd.blit(time_surface, time_rect)
+
 			pygame.display.update()
 			sleep(5)
 	loggerStopFlag.set()
