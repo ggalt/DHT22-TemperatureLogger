@@ -78,7 +78,7 @@ GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 loggerStopFlag = Event()
 
 
-def time2Go():
+def time2Go(channel):
     print("######################## time to go ######################")
     loggerStopFlag.set()
     sleep(0.5)
