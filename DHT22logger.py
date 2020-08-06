@@ -154,6 +154,7 @@ def loggerMain(a='default'):
 def main():
 	# Create logger for debugging purposes
 	global locked
+	locked = False
 	try:
 		Logger()
 		logger = logging.getLogger()
@@ -189,8 +190,8 @@ def main():
 
 	counter = 1
 	loggerStopFlag = Event()
-	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
-	loggerTimer.start()
+	# loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
+	# loggerTimer.start()
 
 	while counter < 4:
 
@@ -228,7 +229,7 @@ def main():
 			timeString = dateTimeObj.strftime("%I:%M %p")
 
 			time_surface = font_big.render(timeString, True, GREEN)
-			time_rect = time_surface.get_rect(topright = (120,190))
+			time_rect = time_surface.get_rect(centerx = 120, bottom = 310 )
 			lcd.blit(time_surface, time_rect)
 
 			pygame.display.update()
