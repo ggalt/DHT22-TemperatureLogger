@@ -64,28 +64,10 @@ FRIDGE_FREEZER_LBL = "Fridge-Freezer:"
 #sensor GPIO pins
 FREEZER = 4
 FRIDGE_FREEZER = 22
-FRIDGE = 25
+FRIDGE = 23
 
 FIVE_MINUTES = 15
 
-
-channel = 16
-
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(channel, GPIO.IN)
-GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-loggerStopFlag = Event()
-
-
-def time2Go(channel):
-    print("######################## time to go ######################")
-    loggerStopFlag.set()
-    sleep(0.5)
-    GPIO.cleanup()
-    sys.exit()
-
-GPIO.add_event_detect(channel, GPIO.BOTH, callback=time2Go, bouncetime=200)
 
 def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
@@ -205,7 +187,7 @@ def main():
 	keyConnect = {FREEZER:"Freezer", FRIDGE_FREEZER:"Fridge-Freezer", FRIDGE:"Fridge-Fridge"}
 
 	counter = 1
- 
+	loggerStopFlag = Event()
 	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
 	loggerTimer.start()
 
@@ -241,6 +223,8 @@ def main():
 			pygame.display.update()
 			sleep(5)
 	loggerStopFlag.set()
+	sleep(0.5)
+	GPIO.cleanup()
 
      
 
