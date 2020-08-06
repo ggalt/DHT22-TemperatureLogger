@@ -68,6 +68,7 @@ FRIDGE = 23
 
 FIVE_MINUTES = 15
 
+
 channel = 16
 
 GPIO.setmode(GPIO.BOARD)
