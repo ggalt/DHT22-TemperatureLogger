@@ -31,6 +31,7 @@
 
 import sys
 import logging, logging.handlers
+import RPi.GPIO as GPIO
 
 from threading import Event
 from Debugger.Logger import Logger
@@ -66,6 +67,21 @@ FRIDGE_FREEZER = 22
 FRIDGE = 23
 
 FIVE_MINUTES = 15
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(channel, GPIO.IN)
+GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+loggerStopFlag = Event()
+
+
+def time2Go():
+    loggerStopFlag.set()
+    sleep(0.5)
+    GPIO.cleanup()
+    sys.exit()
+
+GPIO.add_event_detect(channel, GPIO.BOTH, callback=time2Go, bouncetime=200)
 
 def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
@@ -186,7 +202,6 @@ def main():
 
 	counter = 1
  
-	loggerStopFlag = Event()
 	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
 	loggerTimer.start()
 
