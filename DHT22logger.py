@@ -224,8 +224,8 @@ def main():
 			locked = False
 
 			dateTimeObj = datetime.now()
-			timeObj = dateTimeObj.time()
-			timeString = timeObj.hour+":"+timeObj.minute
+			
+			timeString = dateTimeObj.strftime("%I:%M %p %z")
 
 			time_surface = font_big.render(timeString, True, WHITE)
 			time_rect = time_surface.get_rect(midbottom = (120,310))
