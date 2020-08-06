@@ -228,7 +228,7 @@ def main():
 			timeString = dateTimeObj.strftime("%I:%M %p")
 
 			time_surface = font_big.render(timeString, True, GREEN)
-			time_rect = time_surface.get_rect(topright = (120,200))
+			time_rect = time_surface.get_rect(topright = (120,190))
 			lcd.blit(time_surface, time_rect)
 
 			pygame.display.update()
