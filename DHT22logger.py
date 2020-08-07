@@ -196,7 +196,7 @@ def main():
 	# counter = 1
 	# Establish Thread for logged readings of temps
 	loggerStopFlag = Event()
-	loggerTimer = MyTimer(15,loggerStopFlag,loggerMain)
+	loggerTimer = MyTimer(FIVE_MINUTES,loggerStopFlag,loggerMain)
 	loggerTimer.start()
 
 	# while counter < 4:
