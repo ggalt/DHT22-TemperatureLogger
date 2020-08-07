@@ -74,6 +74,7 @@ THIRTY_SECONDS = 30
 
 def loggerMain(a='default'):
 	logger = logging.getLogger('DHT22Logger')
+	logger.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXX Starting Logging Process XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 
 	# Read configurations from config.json. If this fails, no need to run further -> terminate.
 	try:
