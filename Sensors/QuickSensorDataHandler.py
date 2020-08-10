@@ -66,3 +66,4 @@ class QuickSensorDataHandler():
 				self.sensorTempsAndColors[key] = (myTemp, LIGHTBLUE)
 			else:
 				self.sensorTempsAndColors[key] = (myTemp, GREEN)
+			print("::::::::::::::", myTemp, self.sensorTempAndColors[key])
