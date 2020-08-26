@@ -34,9 +34,6 @@ class QuickSensorDataHandler():
 			self.logger.error("Sensor reading raised exception",exc_info=True)
 			raise
 
-		print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Readings from Sensors:", self.readingsFromSensors)
-		print(self.sensorTempsAndColors)
-
 		# Check if measured values are beyond set limits
 		try:
 			self._compareReadValuesWithSetLimits()
@@ -55,7 +52,6 @@ class QuickSensorDataHandler():
 		LIGHTBLUE = (0, 150, 255)
 
 		for key, value in self.readingsFromSensors.iteritems():
-			print("key:", key, "value:", value)
 
 			self.logger.info('Perform delta check compare against previously measured results for sensor %s', key)
    
@@ -70,4 +66,4 @@ class QuickSensorDataHandler():
 				self.sensorTempsAndColors[key] = (myTemp, LIGHTBLUE)
 			else:
 				self.sensorTempsAndColors[key] = (myTemp, GREEN)
-			print("::::::::::::::", myTemp, self.sensorTempsAndColors[key])
+			# print("::::::::::::::", myTemp, self.sensorTempsAndColors[key])
