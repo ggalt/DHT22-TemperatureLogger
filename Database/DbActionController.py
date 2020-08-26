@@ -157,3 +157,24 @@ class DbController():
 			self.dbActions.sqlBackup()
 		except:
 			raise
+
+	' Function for getting a week of data on a sensor'
+	def getSensorData4Week(self, sensor):
+		self.logger.info("Getting Weekly Data for sensor:", sensor)
+
+
+		try:
+			# Query to be executed
+			sqlQuery = "SELECT AVG(temperature) FROM temperaturedata WHERE dateandtime BETWEEN '%s' AND '%s' AND sensor='%s'" % (delta,self.currentTimeAsString,sensor)
+
+			# Execute
+			data = self.dbActions.sqlSelect(sqlQuery)
+
+			# Check if some reasonable data was returned and calculate average
+			if data[0] is not None:
+				self.logger.info("Calculating average temperature from returned data")
+				weekAverageTemp = "%.2f" % data
+			else:
+				self.logger.warning("No temperature data found from database")
+		except:
+			raise

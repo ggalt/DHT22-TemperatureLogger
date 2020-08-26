@@ -34,6 +34,8 @@ class QuickSensorDataHandler():
 			self.logger.error("Sensor reading raised exception",exc_info=True)
 			raise
 
+		print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Readings from Sensors:", self.readingsFromSensors)
+
 		# Check if measured values are beyond set limits
 		try:
 			self._compareReadValuesWithSetLimits()
